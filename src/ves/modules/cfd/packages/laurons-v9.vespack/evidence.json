@@ -1,4 +1,6 @@
 {
+  "schema_version": "ves.evidence.v1",
+  "module_id": "cfd",
   "case_id": "laurons-v9",
   "case_title": "Laurons II · full appendage resistance run v9",
   "generated_at": "2026-07-17T13:00:00Z",
@@ -91,7 +93,9 @@
       "kind": "image",
       "href": "/assets/cfd/wave-top.png",
       "caption": "Generated from the Laurons II v9 solution field.",
-      "rights": "Project-generated visualization"
+      "rights": "Project-generated visualization",
+      "package_path": "artifacts/wave-top.png",
+      "sha256": "2624295a80f56c634f776946c91154d538d3b61db9a11ad85107c218df960fdd"
     },
     {
       "id": "artifact.resistance_breakdown",
@@ -99,7 +103,9 @@
       "kind": "image",
       "href": "/assets/cfd/resistance-breakdown.png",
       "caption": "Pressure, friction, hull, keel and rudder contributions.",
-      "rights": "Project-generated diagram"
+      "rights": "Project-generated diagram",
+      "package_path": "artifacts/resistance-breakdown.png",
+      "sha256": "98ad2713f5325eca3a0857c04749bf631b7764ed7bf6b3322150d3ca0adc32c2"
     },
     {
       "id": "artifact.mesh_flythrough",
@@ -107,7 +113,9 @@
       "kind": "video",
       "href": "/assets/cfd/mesh-flythrough.mp4",
       "caption": "Longitudinal slice through the 3.91 M-cell v9 mesh.",
-      "rights": "Project-generated visualization"
+      "rights": "Project-generated visualization",
+      "package_path": "artifacts/mesh-flythrough.mp4",
+      "sha256": "714ffbbfafe8f3950a8319eb07981f165ee535d626ce52811f619b62c81cb732"
     },
     {
       "id": "artifact.ldpf_context",
@@ -126,9 +134,11 @@
   "limits": [
     "A three-grid convergence study has not yet been completed.",
     "The force signal remains unsteady; a single snapshot is not a valid resistance estimate.",
+    "The sanitized public package does not contain residual histories, boundary-condition details or the exact solver build.",
     "The AI review interprets supplied evidence and does not run or replace the CFD solver."
   ],
   "provenance": {
+    "evidence_package": "ves.laurons-ii.v9.public (hash-validated)",
     "solver": "OpenFOAM interFoam (RANS-VOF)",
     "turbulence_model": "k-omega SST",
     "mesh": "snappyHexMesh, half-domain, 3.91 million cells",
@@ -136,6 +146,21 @@
     "geometry": "project-created Laurons II CAD; hull + keel + two rudders",
     "source_run": "Laurons_v9_rudder_fine_optimized",
     "publication_scope": "aggregated values and project-generated media only"
-  }
+  },
+  "references": [
+    {
+      "id": "ref.versteeg2007.ch10",
+      "title": "Errors and uncertainty in CFD modelling",
+      "citation": "H. K. Versteeg and W. Malalasekera, An Introduction to Computational Fluid Dynamics: The Finite Volume Method, 2nd ed., Pearson, 2007, Chapter 10, pp. 285–303 (PDF pp. 299–317).",
+      "source_kind": "textbook",
+      "scope": "Numerical error, verification and validation, systematic mesh refinement, GCI, best practice and reporting."
+    },
+    {
+      "id": "ref.ittc2017.vv",
+      "title": "Uncertainty Analysis in CFD — Verification and Validation Methodology and Procedures",
+      "citation": "ITTC Recommended Procedures and Guidelines 7.5-03-01-01, Revision 03, 2017.",
+      "source_kind": "standard",
+      "scope": "Convergence studies, refinement-ratio control and uncertainty reporting."
+    }
+  ]
 }
-

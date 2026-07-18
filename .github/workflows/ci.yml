@@ -1,0 +1,32 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+      - run: uv sync --frozen --extra test
+      - run: uv run ruff check .
+      - run: uv run pytest -q
+      - run: node --check src/ves/static/assets/app.js
+      - run: bash -n scripts/configure-openai-key.sh
+      - run: uv run ves pack validate src/ves/modules/cfd/packages/laurons-v9.vespack

@@ -8,6 +8,7 @@ from ves.core.models import (
     EvidenceBundle,
     Metric,
     ModuleDescriptor,
+    ReviewPrompt,
     ValidationCheck,
 )
 from ves.modules.base import EngineeringModule
@@ -39,6 +40,18 @@ class IsaacModule(EngineeringModule):
                 title="Intent → skill plan → proof",
                 summary="Stable handoff snapshot will replace this read-only preview.",
                 state="preview",
+            )
+        ]
+
+    def review_prompts(self) -> list[ReviewPrompt]:
+        return [
+            ReviewPrompt(
+                id="preview-boundary",
+                label="Proof boundary",
+                question=(
+                    "Explain what the current read-only Isaac preview proves, what it does not "
+                    "prove, and which stable handoff evidence is still required."
+                ),
             )
         ]
 

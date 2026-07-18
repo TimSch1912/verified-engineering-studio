@@ -1,0 +1,51 @@
+{
+  "schema_version": "ves.package.v1",
+  "package_id": "ves.laurons-ii.v9.public",
+  "project_id": "laurons-ii",
+  "case_id": "laurons-v9",
+  "run_id": "laurons-v9-fine-optimized",
+  "module_id": "cfd",
+  "created_at": "2026-07-18T11:02:32Z",
+  "publication_scope": "public",
+  "adapter": {
+    "id": "ves.curated-cfd",
+    "version": "0.2.0"
+  },
+  "files": [
+    {
+      "path": "evidence.json",
+      "role": "evidence",
+      "sha256": "1bee8248f963803ab1cddb5af28b3fd243478c03984883fe568e623eea08380a",
+      "size_bytes": 6138,
+      "media_type": "application/json"
+    },
+    {
+      "path": "provenance.json",
+      "role": "provenance",
+      "sha256": "6998d88e8dbb38935580f5e7ddc172e10867516687e0c7d5f1b8ce9773fecc15",
+      "size_bytes": 928,
+      "media_type": "application/json"
+    },
+    {
+      "path": "artifacts/wave-top.png",
+      "role": "artifact",
+      "sha256": "2624295a80f56c634f776946c91154d538d3b61db9a11ad85107c218df960fdd",
+      "size_bytes": 202860,
+      "media_type": "image/png"
+    },
+    {
+      "path": "artifacts/resistance-breakdown.png",
+      "role": "artifact",
+      "sha256": "98ad2713f5325eca3a0857c04749bf631b7764ed7bf6b3322150d3ca0adc32c2",
+      "size_bytes": 132444,
+      "media_type": "image/png"
+    },
+    {
+      "path": "artifacts/mesh-flythrough.mp4",
+      "role": "artifact",
+      "sha256": "714ffbbfafe8f3950a8319eb07981f165ee535d626ce52811f619b62c81cb732",
+      "size_bytes": 4676874,
+      "media_type": "video/mp4"
+    }
+  ]
+}

@@ -28,22 +28,27 @@ VES is a public, read-only review surface for engineering workflows. A user sele
 The first two modules demonstrate that the same contract works across very different domains:
 
 1. **CFD Evidence Review** audits a completed OpenFOAM resistance calculation for the reconstructed Roman merchant ship Laurons II. It checks force decomposition, patch balance and the deviation from an aggregate towing-test reference. It also refuses to call the result grid-independent because the three-grid convergence study is still pending.
-2. **Robotics Skill Verification** maps a task intent through skill planning, deterministic gates and execution proof from Isaac Skill Studio. The competition integration is deliberately read-only and consumes a stable handoff instead of changing the simulator application.
+2. **Robotics Skill Verification** previews how a task intent will map through skill planning, deterministic gates and execution proof from Isaac Skill Studio. It is honestly marked `handoff pending` until the separate stabilization session supplies a stable export; the public adapter cannot command the simulator.
 
 The public app never starts a CFD solver, simulator or robot. GPT-5.6 reviews supplied evidence; it does not manufacture measurements or replace engineering sign-off.
 
 ### How we built it
 
-The backend uses Python, FastAPI and Pydantic. Every engineering module implements four small methods:
+The backend uses Python, FastAPI and Pydantic. Every engineering module implements five small methods:
 
 ```python
 describe()        -> ModuleDescriptor
 list_cases()      -> list[CaseDescriptor]
+review_prompts()  -> list[ReviewPrompt]
 build_evidence()  -> EvidenceBundle
 validate()        -> list[ValidationCheck]
 ```
 
-The shared core registers those adapters, rejects unknown cases, runs deterministic checks and hashes the exact evidence payload. It then uses the OpenAI Responses API with `gpt-5.6` and Pydantic Structured Outputs to produce a typed `EngineeringVerdict`.
+The CFD case now enters through a real directory-form `.vespack`. Before loading it, VES validates typed schemas, declared byte sizes, a SHA-256 file index, artifact rights and privacy rules; undeclared, executable, symlinked, path-traversing or secret-shaped content fails closed. The shared core then runs discipline-owned checks and hashes the exact normalized evidence payload.
+
+The CFD method trail cites Versteeg & Malalasekera's finite-volume textbook for error, uncertainty, verification, GCI and reproducible reporting, while keeping literature support separate from run-specific evidence. A transparent CLI computes observed order, Richardson extrapolation and GCI only for a valid monotonic, approximately constant-ratio three-grid sequence.
+
+The review layer uses the OpenAI Responses API with `gpt-5.6` and Pydantic Structured Outputs to produce a typed `EngineeringVerdict`.
 
 The model is explicitly instructed to use only supplied evidence and exact evidence IDs. Application-side validation removes unknown references. Failed deterministic checks force a blocked result; warnings prevent an unqualified verified status. If the OpenAI API is unavailable, the product fails gracefully to a clearly labelled deterministic review instead of fabricating an AI response.
 
@@ -57,6 +62,8 @@ Codex was the primary implementation environment for the new VES platform during
 - choose a separate adapter architecture instead of merging two mature projects;
 - implement the typed schemas, registry, GPT-5.6 review layer, frontend and deployment;
 - turn real CFD values into deterministic regression tests;
+- derive and test CFD verification rules against Versteeg & Malalasekera (2007), Chapter 10;
+- implement the `.vespack` integrity/privacy boundary and transparent three-grid CLI;
 - identify and document the distinction between cell-count ratio and representative-grid-spacing ratio for the planned three-grid study;
 - run linting, API tests, browser checks, secret scans and public deployment verification.
 
@@ -75,6 +82,8 @@ Another challenge was separating pre-existing engineering work from the new comp
 - A working public product rather than a slide-only concept.
 - One evidence contract spanning CFD and robotics.
 - Deterministic checks that retain authority over the AI verdict.
+- A portable, hash-validated evidence package rather than a hard-coded demo object.
+- Visible method citations that never masquerade as case evidence.
 - Traceable evidence citations and a reproducible SHA-256 fingerprint.
 - Graceful operation when the model API is unavailable.
 - A clean module template for future FEA, experiments, energy systems and test-rig modules.
@@ -112,9 +121,8 @@ Python, FastAPI, Pydantic, OpenAI API, GPT-5.6, OpenAI Responses API, Structured
 
 - `submission/media/01-product-hero.png`
 - `submission/media/03-module-architecture.png`
-- Regenerate `02-cfd-review.png` after the GPT-5.6 API credential is active.
+- Regenerate `02-cfd-review.png` after the new evidence-gate interface is deployed.
 
 ## Video demo link
 
 Pending public YouTube upload. Do not submit the final entry until this field contains the finished video of less than three minutes.
-

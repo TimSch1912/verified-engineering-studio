@@ -101,6 +101,7 @@
                   <span id="case-discipline" class="case-discipline">Loading module</span>
                   <h3 id="case-title">Loading evidence…</h3>
                   <p id="case-summary"></p>
+                  <code id="case-package-digest" class="case-package-digest"></code>
                 </div>
                 <span id="case-state" class="status-chip">Loading</span>
               </div>
@@ -121,6 +122,10 @@
                     <summary>Source provenance</summary>
                     <dl id="evidence-provenance"></dl>
                   </details>
+                  <details class="provenance-details method-details" open>
+                    <summary>Engineering method basis</summary>
+                    <div id="method-references" class="method-references"></div>
+                  </details>
                 </section>
 
                 <section class="verdict-panel" aria-labelledby="verdict-title">
@@ -132,6 +137,7 @@
                     <span id="review-mode-chip" class="quiet-chip">Checking live review…</span>
                   </div>
                   <label for="review-question">Review focus</label>
+                  <div id="review-prompts" class="review-prompts" aria-label="Guided review questions"></div>
                   <textarea id="review-question" rows="3">Assess whether the evidence supports the reported result and identify the next verification step.</textarea>
                   <button id="review-button" class="button primary full" type="button">
                     Run verified review
@@ -186,6 +192,7 @@
           <pre><code>class EngineeringModule:
     describe()        → ModuleDescriptor
     list_cases()      → list[CaseDescriptor]
+    review_prompts()  → list[ReviewPrompt]
     build_evidence()  → EvidenceBundle
     validate()        → list[ValidationCheck]</code></pre>
           <div>

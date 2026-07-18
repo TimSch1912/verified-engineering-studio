@@ -555,6 +555,17 @@ h2 {
   color: #97a8ad;
 }
 
+.case-package-digest {
+  display: block;
+  max-width: 620px;
+  margin-top: 7px;
+  overflow: hidden;
+  color: #607a82;
+  font-size: 8px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .status-chip {
   align-self: start;
   color: #071b17;
@@ -738,6 +749,54 @@ h2 {
   margin: 0;
 }
 
+.method-details {
+  padding-top: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.method-references {
+  display: grid;
+  gap: 8px;
+  margin-top: 11px;
+}
+
+.method-reference {
+  padding: 10px;
+  background: rgba(53, 209, 189, 0.045);
+  border: 1px solid rgba(53, 209, 189, 0.12);
+  border-radius: 8px;
+}
+
+.method-reference > span {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--teal);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 8px;
+}
+
+.method-reference strong,
+.method-reference p,
+.method-reference small {
+  display: block;
+}
+
+.method-reference strong {
+  color: #dce8e7;
+  font-size: 10px;
+}
+
+.method-reference p {
+  margin: 4px 0;
+  color: #8ea2a7;
+  font-size: 9px;
+}
+
+.method-reference small {
+  color: #6e858b;
+  font-size: 8px;
+}
+
 .verdict-panel label {
   display: block;
   margin-bottom: 7px;
@@ -746,6 +805,30 @@ h2 {
   font-weight: 800;
   letter-spacing: 0.08em;
   text-transform: uppercase;
+}
+
+.review-prompts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.review-prompt {
+  padding: 6px 8px;
+  color: #8fa3a8;
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 999px;
+  cursor: pointer;
+  font-size: 9px;
+}
+
+.review-prompt:hover,
+.review-prompt.active {
+  color: #d9f6f1;
+  background: rgba(53, 209, 189, 0.1);
+  border-color: rgba(53, 209, 189, 0.35);
 }
 
 textarea {
@@ -833,6 +916,76 @@ textarea:focus {
   font-size: 12px;
 }
 
+.review-section-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin: 15px 0 7px;
+  color: #d7e3e2;
+  font-size: 10px;
+}
+
+.review-section-head span {
+  color: #738a91;
+  font-size: 8px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.check-list {
+  display: grid;
+  gap: 7px;
+}
+
+.check {
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 7px;
+}
+
+.check.pass { border-left: 3px solid var(--teal); }
+.check.warn { border-left: 3px solid var(--amber); }
+.check.fail { border-left: 3px solid var(--red); }
+.check.info { border-left: 3px solid #7795ae; }
+
+.check-title {
+  display: flex;
+  align-items: start;
+  gap: 7px;
+}
+
+.check-title span {
+  min-width: 34px;
+  padding: 2px 4px;
+  color: #98aaae;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 4px;
+  font-size: 7px;
+  font-weight: 900;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.check-title strong {
+  font-size: 10px;
+}
+
+.check p {
+  margin: 5px 0 0;
+  color: #8ca0a5;
+  font-size: 9px;
+}
+
+.method-citation {
+  display: block;
+  margin-top: 7px;
+  color: #688087;
+  font-size: 7px;
+  line-height: 1.45;
+}
+
 .finding-list {
   display: grid;
   gap: 7px;
@@ -857,10 +1010,32 @@ textarea:focus {
 }
 
 .finding p,
+.caveat-list li,
 .next-actions li {
   margin: 0;
   color: #91a4aa;
   font-size: 10px;
+}
+
+.caveat-list {
+  margin: 8px 0 13px;
+  padding-left: 18px;
+}
+
+.reference-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 7px;
+}
+
+.reference-chips span {
+  padding: 2px 4px;
+  color: #7f999e;
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 4px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 7px;
 }
 
 .next-actions {
@@ -1001,7 +1176,7 @@ footer {
   .build-badge { font-size: 9px; }
   .hero { min-height: auto; padding-block: 64px 40px; }
   h1 { font-size: 52px; }
-  .hero-visual { min-height: 370px; transform: scale(.85); margin-inline: -30px; }
+  .hero-visual { min-height: 370px; overflow: hidden; transform: scale(.85); margin-inline: -30px; }
   .trust-row { gap: 12px; }
   .section-heading { align-items: start; flex-direction: column; gap: 8px; }
   .module-cards { grid-template-columns: 1fr; }

@@ -53,7 +53,13 @@ For total resistance and the important components, report:
 Three similar resistance values are encouraging, but they do not by themselves complete the study.
 Their differences must be evaluated against transient/statistical uncertainty and the GCI procedure.
 
-Reference procedure: I. B. Celik et al., *Procedure for Estimation and Reporting of Uncertainty Due
-to Discretization in CFD Applications*, Journal of Fluids Engineering 130 (2008), and the reproduced
-procedure in [NUREG-2152 Appendix A](https://www.govinfo.gov/content/pkg/GOVPUB-Y3_N88-PURL-gpo36641/pdf/GOVPUB-Y3_N88-PURL-gpo36641.pdf).
+The first transparent calculator is available as `ves cfd convergence`. It computes a result only
+for an approximately constant-ratio, monotonic three-grid sequence; all other regimes return no GCI
+instead of a misleading number. See [CFD method basis](CFD_METHOD_REFERENCES.md) for its formula and
+scope.
 
+Primary method basis: H. K. Versteeg and W. Malalasekera, *An Introduction to Computational Fluid
+Dynamics: The Finite Volume Method*, 2nd ed., Chapter 10, especially pp. 293–301. Complementary
+procedure: ITTC 7.5-03-01-01, Revision 03 (2017). The later generalized unequal-ratio calculation
+will be verified against I. B. Celik et al., *Procedure for Estimation and Reporting of Uncertainty
+Due to Discretization in CFD Applications*, Journal of Fluids Engineering 130 (2008).

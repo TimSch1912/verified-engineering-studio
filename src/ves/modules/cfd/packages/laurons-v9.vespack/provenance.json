@@ -1,0 +1,21 @@
+{
+  "schema_version": "ves.provenance.v1",
+  "producer": {
+    "name": "Verified Engineering Studio curated CFD adapter",
+    "version": "0.2.0"
+  },
+  "source_system": "OpenFOAM curated public export",
+  "source_run_id": "laurons-v9-fine-optimized",
+  "source_created_at": "2026-07-17T13:00:00Z",
+  "display": {
+    "evidence_package": "ves.laurons-ii.v9.public (hash-validated)",
+    "solver": "OpenFOAM interFoam (RANS-VOF)",
+    "turbulence_model": "k-omega SST",
+    "mesh": "snappyHexMesh, half-domain, 3.91 million cells",
+    "time_control": "adaptive, Courant constrained",
+    "geometry": "project-created Laurons II CAD; hull + keel + two rudders",
+    "source_run": "Laurons_v9_rudder_fine_optimized",
+    "publication_scope": "aggregated values and project-generated media only"
+  },
+  "publication_note": "Sanitized for public release: aggregate values, solver/mesh parameters and project-generated media only."
+}

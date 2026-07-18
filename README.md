@@ -22,8 +22,9 @@ New work in this repository:
 
 - shared `ves.evidence.v1` and `ves.review.v1` contracts
 - runtime module registry and fail-closed adapter boundary
-- deterministic CFD consistency gates
-- read-only Isaac handoff adapter
+- hash-validated `.vespack` import and privacy/integrity gate
+- deterministic CFD consistency and three-grid convergence tools with method citations
+- read-only Isaac handoff-preview adapter
 - GPT-5.6 Responses API integration with Pydantic Structured Outputs
 - review provenance, evidence hashing, public web product and module template
 
@@ -101,12 +102,13 @@ Task Intent ──► Module Registry ──► Evidence Bundle
                                      verdict + citations + provenance
 ```
 
-Every module implements four read-only methods:
+Every module implements five read-only methods:
 
 ```python
 class EngineeringModule:
     def describe(self) -> ModuleDescriptor: ...
     def list_cases(self) -> list[CaseDescriptor]: ...
+    def review_prompts(self) -> list[ReviewPrompt]: ...
     def build_evidence(self, case_id: str) -> EvidenceBundle: ...
     def validate(self, evidence: EvidenceBundle) -> list[ValidationCheck]: ...
 ```
@@ -115,6 +117,17 @@ See [Adding a module](docs/ADDING_A_MODULE.md) for the extension path and
 [CFD grid convergence plan](docs/GRID_CONVERGENCE_PLAN.md) for the next verification step. The
 [product roadmap](docs/PRODUCT_ROADMAP.md) describes the durable dual-domain studio, portable
 evidence packages and the implementation sequence beyond the competition.
+
+The first package implementation is now executable: [VES Evidence Package v1](docs/VESPACK.md)
+documents the integrity/privacy gate, while [CFD method basis](docs/CFD_METHOD_REFERENCES.md) maps
+the deterministic CFD rules to Versteeg & Malalasekera (2007) and the complementary ITTC procedure.
+
+```bash
+uv run ves pack validate src/ves/modules/cfd/packages/laurons-v9.vespack
+uv run ves cfd convergence \
+  --fine-value 99 --medium-value 100 --coarse-value 102 \
+  --fine-cells 2828427 --medium-cells 1000000 --coarse-cells 353553 --json
+```
 
 ## Data and media policy
 

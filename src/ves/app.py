@@ -18,7 +18,9 @@ PACKAGE_DIR = Path(__file__).resolve().parent
 STATIC_DIR = PACKAGE_DIR / "static"
 
 registry = ModuleRegistry()
-registry.register(CFDModule())
+cfd_module = CFDModule()
+cfd_package = cfd_module.load_package()
+registry.register(cfd_module)
 registry.register(IsaacModule())
 review_service = ReviewService()
 
@@ -28,6 +30,11 @@ app = FastAPI(
     description="Evidence-first AI reviews for modular engineering workflows.",
     docs_url="/api/docs",
     redoc_url=None,
+)
+app.mount(
+    "/assets/cfd",
+    StaticFiles(directory=cfd_package.root / "artifacts"),
+    name="cfd-evidence-assets",
 )
 app.mount("/assets", StaticFiles(directory=STATIC_DIR / "assets"), name="assets")
 
@@ -72,6 +79,14 @@ async def list_modules():
 async def list_cases(module_id: str):
     try:
         return registry.get(module_id).list_cases()
+    except UnknownModuleError as exc:
+        raise HTTPException(status_code=404, detail="Unknown engineering module") from exc
+
+
+@app.get("/api/modules/{module_id}/review-prompts")
+async def list_review_prompts(module_id: str):
+    try:
+        return registry.get(module_id).review_prompts()
     except UnknownModuleError as exc:
         raise HTTPException(status_code=404, detail="Unknown engineering module") from exc
 

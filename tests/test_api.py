@@ -1,3 +1,5 @@
+import hashlib
+
 from fastapi.testclient import TestClient
 from starlette.requests import Request
 
@@ -30,9 +32,21 @@ def test_module_and_evidence_endpoints():
     modules = client.get("/api/modules")
     assert modules.status_code == 200
     assert {item["id"] for item in modules.json()} == {"cfd", "isaac"}
+    cases = client.get("/api/modules/cfd/cases")
+    assert cases.status_code == 200
+    assert len(cases.json()[0]["package_sha256"]) == 64
     evidence = client.get("/api/modules/cfd/cases/laurons-v9/evidence")
     assert evidence.status_code == 200
     assert evidence.json()["schema_version"] == "ves.evidence.v1"
+    prompts = client.get("/api/modules/cfd/review-prompts")
+    assert prompts.status_code == 200
+    assert [item["id"] for item in prompts.json()] == ["support", "grid-study", "review-brief"]
+
+    wave = client.get("/assets/cfd/wave-top.png")
+    assert wave.status_code == 200
+    assert hashlib.sha256(wave.content).hexdigest() == (
+        "2624295a80f56c634f776946c91154d538d3b61db9a11ad85107c218df960fdd"
+    )
 
 
 def test_review_degrades_to_deterministic_mode_without_key(monkeypatch):
@@ -49,6 +63,10 @@ def test_review_degrades_to_deterministic_mode_without_key(monkeypatch):
     payload = response.json()
     assert payload["provenance"]["mode"] == "deterministic-fallback"
     assert payload["verdict"]["status"] == "review"
+    assert {finding["title"] for finding in payload["verdict"]["findings"]} == {
+        "Discretization uncertainty remains open",
+        "Public package is not yet reproduction-complete",
+    }
     assert payload["provenance"]["evidence_sha256"]
 
 

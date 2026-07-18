@@ -6,6 +6,7 @@ from ves.core.models import (
     CaseDescriptor,
     EvidenceBundle,
     ModuleDescriptor,
+    ReviewPrompt,
     ValidationCheck,
 )
 
@@ -22,10 +23,13 @@ class EngineeringModule(ABC):
         raise NotImplementedError
 
     @abstractmethod
+    def review_prompts(self) -> list[ReviewPrompt]:
+        raise NotImplementedError
+
+    @abstractmethod
     def build_evidence(self, case_id: str) -> EvidenceBundle:
         raise NotImplementedError
 
     @abstractmethod
     def validate(self, evidence: EvidenceBundle) -> list[ValidationCheck]:
         raise NotImplementedError
-

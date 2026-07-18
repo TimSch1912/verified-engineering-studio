@@ -37,6 +37,13 @@ class CaseDescriptor(BaseModel):
     title: str
     summary: str
     state: Literal["ready", "preview"]
+    package_sha256: str | None = Field(default=None, pattern=r"^[0-9a-f]{64}$")
+
+
+class ReviewPrompt(BaseModel):
+    id: str = Field(pattern=r"^[a-z][a-z0-9._-]+$")
+    label: str
+    question: str = Field(min_length=3, max_length=800)
 
 
 class Metric(BaseModel):
@@ -55,6 +62,17 @@ class EvidenceArtifact(BaseModel):
     href: str
     caption: str
     rights: str
+    package_path: str | None = None
+    sha256: str | None = Field(default=None, pattern=r"^[0-9a-f]{64}$")
+
+
+class MethodReference(BaseModel):
+    id: str = Field(pattern=r"^ref\.[a-z0-9][a-z0-9._-]+$")
+    title: str
+    citation: str
+    source_kind: Literal["textbook", "standard", "paper", "project"]
+    url: str | None = None
+    scope: str
 
 
 class EvidenceBundle(BaseModel):
@@ -68,6 +86,7 @@ class EvidenceBundle(BaseModel):
     claims: list[str]
     limits: list[str]
     provenance: dict[str, str]
+    references: list[MethodReference] = Field(default_factory=list)
 
 
 class ValidationCheck(BaseModel):
@@ -76,6 +95,7 @@ class ValidationCheck(BaseModel):
     title: str
     detail: str
     evidence_refs: list[str]
+    method_refs: list[str] = Field(default_factory=list)
 
 
 class Finding(BaseModel):

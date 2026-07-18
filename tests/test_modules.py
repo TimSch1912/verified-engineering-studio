@@ -33,6 +33,14 @@ def test_unknown_cfd_case_fails_closed():
         raise AssertionError("Unknown cases must not fall back to a different evidence bundle")
 
 
+def test_cfd_integrity_check_rejects_evidence_changed_after_package_load():
+    module = CFDModule()
+    evidence = module.build_evidence("laurons-v9")
+    changed = evidence.model_copy(update={"case_title": "Altered after validation"})
+    checks = {check.id: check for check in module.validate(changed)}
+    assert checks["check.package_integrity"].status == "fail"
+
+
 def test_isaac_preview_is_a_stable_snapshot():
     module = IsaacModule()
     first = module.build_evidence("skill-plan-proof")
