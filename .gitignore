@@ -4,7 +4,8 @@ __pycache__/
 .pytest_cache/
 .ruff_cache/
 .env
+deploy/cloudflared.yml
+deploy/cloudflared-credentials.json
 dist/
 build/
 *.egg-info/
-
