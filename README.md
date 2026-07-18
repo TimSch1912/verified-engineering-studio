@@ -1,0 +1,107 @@
+# Verified Engineering Studio
+
+Verified Engineering Studio (VES) turns simulation and robotics evidence into traceable
+engineering reviews. A small module contract supplies typed evidence and deterministic checks;
+GPT-5.6 converts that material into a structured verdict without taking authority away from the
+engineering gates.
+
+> Evidence before confidence. If a source, check, or limitation is missing, VES says so instead of
+> inventing certainty.
+
+## Competition build
+
+This repository is the new OpenAI Build Week 2026 work product. It intentionally does not copy or
+refactor the two pre-existing engineering applications.
+
+Pre-existing work:
+
+- Isaac Skill Studio and its generalized task/skill pipeline
+- Laurons II OpenFOAM v9 calculation and project-generated visualizations
+
+New work in this repository:
+
+- shared `ves.evidence.v1` and `ves.review.v1` contracts
+- runtime module registry and fail-closed adapter boundary
+- deterministic CFD consistency gates
+- read-only Isaac handoff adapter
+- GPT-5.6 Responses API integration with Pydantic Structured Outputs
+- review provenance, evidence hashing, public web product and module template
+
+## Current modules
+
+| Module | State | Public action |
+|---|---|---|
+| CFD Evidence Review | Ready | Review the curated Laurons II v9 evidence bundle |
+| Robotics Skill Verification | Handoff pending | Inspect a read-only preview and public proof link |
+
+The public build never starts a solver, simulator or robot. GPT-5.6 receives only a curated evidence
+bundle plus deterministic check results.
+
+## Run locally
+
+```bash
+uv venv
+uv sync --extra test
+uv run uvicorn ves.app:app --app-dir src --host 127.0.0.1 --port 8110
+```
+
+Open `http://127.0.0.1:8110`. API documentation is available at `/api/docs`.
+
+The app works without an OpenAI key and clearly labels the result as a deterministic fallback. To
+enable the structured GPT-5.6 review, set `OPENAI_API_KEY` in the server process environment. Never
+place the real value in browser code, `.env.example`, a commit, an issue, or a screenshot.
+
+```bash
+cp .env.example .env
+chmod 600 .env
+# Edit .env locally and set OPENAI_API_KEY. The .env file is ignored by Git.
+```
+
+## Tests
+
+```bash
+uv run pytest
+uv run ruff check .
+```
+
+## Architecture
+
+```text
+question
+   │
+   ▼
+Task Intent ──► Module Registry ──► Evidence Bundle
+                                        │
+                                        ├──► deterministic gates
+                                        │
+                                        └──► GPT-5.6 structured review
+                                                   │
+                                                   ▼
+                                     verdict + citations + provenance
+```
+
+Every module implements four read-only methods:
+
+```python
+class EngineeringModule:
+    def describe(self) -> ModuleDescriptor: ...
+    def list_cases(self) -> list[CaseDescriptor]: ...
+    def build_evidence(self, case_id: str) -> EvidenceBundle: ...
+    def validate(self, evidence: EvidenceBundle) -> list[ValidationCheck]: ...
+```
+
+See [Adding a module](docs/ADDING_A_MODULE.md) for the extension path and
+[CFD grid convergence plan](docs/GRID_CONVERGENCE_PLAN.md) for the next verification step.
+
+## Data and media policy
+
+Only project-generated diagrams, aggregate resistance values, solver/mesh parameters, mesh
+flythroughs and project-owned CAD renderings may be committed. The Hochschule Trier LDPF page is
+linked for project context; its images are not redistributed by this repository. Third-party SVA
+reports, source images and protected CAD are excluded.
+
+## License
+
+Code is available under the MIT License. Bundled media remains copyright Timo Schares / project
+contributors and is included for judging and demonstration; see [the asset register](docs/ASSET_REGISTER.md).
+

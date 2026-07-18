@@ -1,0 +1,141 @@
+{
+  "case_id": "laurons-v9",
+  "case_title": "Laurons II · full appendage resistance run v9",
+  "generated_at": "2026-07-17T13:00:00Z",
+  "metrics": [
+    {
+      "id": "metric.total_resistance",
+      "label": "Total resistance (t ≥ 20 s)",
+      "value": 48.19,
+      "unit": "N",
+      "display": "48.19 ± 6.74 N",
+      "source": "OpenFOAM force time series, temporal mean and standard deviation"
+    },
+    {
+      "id": "metric.period_mean",
+      "label": "Period mean (15–25.5 s)",
+      "value": 49.36,
+      "unit": "N",
+      "display": "49.36 N",
+      "source": "OpenFOAM force time series, fixed physical-time window"
+    },
+    {
+      "id": "metric.reference_resistance",
+      "label": "Towing-test reference",
+      "value": 53.85,
+      "unit": "N",
+      "display": "53.85 N",
+      "source": "Provided aggregate SVA reference; no third-party report is redistributed"
+    },
+    {
+      "id": "metric.period_delta",
+      "label": "Period mean vs. reference",
+      "value": -8.34,
+      "unit": "%",
+      "display": "−8.34 %",
+      "source": "Deterministic calculation from metric.period_mean and metric.reference_resistance"
+    },
+    {
+      "id": "metric.friction",
+      "label": "Friction component",
+      "value": 23.73,
+      "unit": "N",
+      "display": "23.73 N",
+      "source": "OpenFOAM force decomposition, t ≥ 20 s"
+    },
+    {
+      "id": "metric.pressure",
+      "label": "Pressure component",
+      "value": 24.46,
+      "unit": "N",
+      "display": "24.46 N",
+      "source": "OpenFOAM force decomposition, t ≥ 20 s"
+    },
+    {
+      "id": "metric.hull",
+      "label": "Hull contribution",
+      "value": 36.39,
+      "unit": "N",
+      "display": "36.39 N",
+      "source": "OpenFOAM patch force, t ≥ 20 s"
+    },
+    {
+      "id": "metric.keel",
+      "label": "Keel contribution",
+      "value": 3.43,
+      "unit": "N",
+      "display": "3.43 N",
+      "source": "OpenFOAM patch force, t ≥ 20 s"
+    },
+    {
+      "id": "metric.rudders",
+      "label": "Two-rudder contribution",
+      "value": 7.97,
+      "unit": "N",
+      "display": "7.97 N",
+      "source": "OpenFOAM patch force, t ≥ 20 s"
+    },
+    {
+      "id": "metric.cells",
+      "label": "Mesh size",
+      "value": 3.91,
+      "unit": "million cells",
+      "display": "3.91 M cells",
+      "source": "v9 mesh inventory"
+    }
+  ],
+  "artifacts": [
+    {
+      "id": "artifact.wave_top",
+      "title": "Free-surface wave pattern",
+      "kind": "image",
+      "href": "/assets/cfd/wave-top.png",
+      "caption": "Generated from the Laurons II v9 solution field.",
+      "rights": "Project-generated visualization"
+    },
+    {
+      "id": "artifact.resistance_breakdown",
+      "title": "Resistance decomposition",
+      "kind": "image",
+      "href": "/assets/cfd/resistance-breakdown.png",
+      "caption": "Pressure, friction, hull, keel and rudder contributions.",
+      "rights": "Project-generated diagram"
+    },
+    {
+      "id": "artifact.mesh_flythrough",
+      "title": "Mesh flythrough",
+      "kind": "video",
+      "href": "/assets/cfd/mesh-flythrough.mp4",
+      "caption": "Longitudinal slice through the 3.91 M-cell v9 mesh.",
+      "rights": "Project-generated visualization"
+    },
+    {
+      "id": "artifact.ldpf_context",
+      "title": "Laurons II project context",
+      "kind": "link",
+      "href": "https://www.hochschule-trier.de/hauptcampus/technik/labor-fuer-digitale-produktentwicklung-und-fertigung-ldpf/projekte/laurons2",
+      "caption": "Official LDPF project page at Hochschule Trier.",
+      "rights": "External link only; no third-party image is redistributed"
+    }
+  ],
+  "claims": [
+    "The v9 case contains the hull, keel and two rudders.",
+    "The period-mean resistance is below the provided towing-test reference.",
+    "Friction and pressure are of comparable magnitude in the selected averaging window."
+  ],
+  "limits": [
+    "A three-grid convergence study has not yet been completed.",
+    "The force signal remains unsteady; a single snapshot is not a valid resistance estimate.",
+    "The AI review interprets supplied evidence and does not run or replace the CFD solver."
+  ],
+  "provenance": {
+    "solver": "OpenFOAM interFoam (RANS-VOF)",
+    "turbulence_model": "k-omega SST",
+    "mesh": "snappyHexMesh, half-domain, 3.91 million cells",
+    "time_control": "adaptive, Courant constrained",
+    "geometry": "project-created Laurons II CAD; hull + keel + two rudders",
+    "source_run": "Laurons_v9_rudder_fine_optimized",
+    "publication_scope": "aggregated values and project-generated media only"
+  }
+}
+

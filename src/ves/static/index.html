@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Verified Engineering Studio turns simulation evidence into traceable engineering reviews."
+    />
+    <title>Verified Engineering Studio</title>
+    <link rel="stylesheet" href="/assets/app.css" />
+    <script src="/assets/app.js" defer></script>
+  </head>
+  <body>
+    <div class="noise" aria-hidden="true"></div>
+    <header class="site-header">
+      <a class="brand" href="#top" aria-label="Verified Engineering Studio home">
+        <span class="brand-mark">V</span>
+        <span>Verified Engineering Studio</span>
+      </a>
+      <nav aria-label="Primary navigation">
+        <a href="#studio">Studio</a>
+        <a href="#architecture">Architecture</a>
+        <a href="https://github.com/TimSch1912/verified-engineering-studio">GitHub</a>
+      </nav>
+      <span class="build-badge">OpenAI Build Week 2026</span>
+    </header>
+
+    <main id="top">
+      <section class="hero shell">
+        <div class="hero-copy">
+          <p class="eyebrow">Evidence before confidence</p>
+          <h1>Engineering AI that shows its work.</h1>
+          <p class="lede">
+            One review surface for simulation, robotics and the engineering modules that come
+            next. Deterministic checks stay in control; GPT‑5.6 turns verified evidence into a
+            useful, traceable decision brief.
+          </p>
+          <div class="hero-actions">
+            <a class="button primary" href="#studio">Open the studio</a>
+            <a class="button ghost" href="#architecture">See the module contract</a>
+          </div>
+          <ul class="trust-row" aria-label="Product principles">
+            <li><span>01</span> Read-only evidence</li>
+            <li><span>02</span> Deterministic gates</li>
+            <li><span>03</span> Cited AI verdicts</li>
+          </ul>
+        </div>
+        <div class="hero-visual" aria-label="Evidence review pipeline">
+          <div class="orbit orbit-one"></div>
+          <div class="orbit orbit-two"></div>
+          <div class="core-node">
+            <span class="core-kicker">VERDICT</span>
+            <strong>Review</strong>
+            <small>with provenance</small>
+          </div>
+          <div class="satellite satellite-a"><span>Intent</span></div>
+          <div class="satellite satellite-b"><span>Evidence</span></div>
+          <div class="satellite satellite-c"><span>Checks</span></div>
+          <div class="satellite satellite-d"><span>Limits</span></div>
+        </div>
+      </section>
+
+      <section class="module-strip shell" aria-labelledby="modules-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Module registry</p>
+            <h2 id="modules-title">Two disciplines. One evidence contract.</h2>
+          </div>
+          <p>Each adapter supplies cases, metrics, artifacts, limits and deterministic checks.</p>
+        </div>
+        <div id="module-cards" class="module-cards" aria-live="polite"></div>
+      </section>
+
+      <section id="studio" class="studio-section">
+        <div class="shell">
+          <div class="section-heading inverse">
+            <div>
+              <p class="eyebrow">Interactive proof</p>
+              <h2>Review an engineering evidence bundle.</h2>
+            </div>
+            <p>The public experience is intentionally read-only and requires no login.</p>
+          </div>
+
+          <div class="studio-frame">
+            <aside class="studio-sidebar">
+              <div class="sidebar-label">DISCIPLINE</div>
+              <div id="module-tabs" class="module-tabs"></div>
+              <div class="sidebar-note">
+                <span class="pulse"></span>
+                <div>
+                  <strong>Fail-closed review</strong>
+                  <p>If evidence is missing, the system says so. It never fills gaps with invented data.</p>
+                </div>
+              </div>
+            </aside>
+
+            <div class="studio-main">
+              <div class="case-head">
+                <div>
+                  <span id="case-discipline" class="case-discipline">Loading module</span>
+                  <h3 id="case-title">Loading evidence…</h3>
+                  <p id="case-summary"></p>
+                </div>
+                <span id="case-state" class="status-chip">Loading</span>
+              </div>
+
+              <div id="metric-grid" class="metric-grid" aria-live="polite"></div>
+
+              <div class="review-grid">
+                <section class="evidence-panel" aria-labelledby="evidence-title">
+                  <div class="panel-head">
+                    <div>
+                      <span class="panel-index">A</span>
+                      <h4 id="evidence-title">Evidence</h4>
+                    </div>
+                    <span id="artifact-count" class="quiet-chip"></span>
+                  </div>
+                  <div id="artifacts" class="artifacts"></div>
+                  <details class="provenance-details">
+                    <summary>Source provenance</summary>
+                    <dl id="evidence-provenance"></dl>
+                  </details>
+                </section>
+
+                <section class="verdict-panel" aria-labelledby="verdict-title">
+                  <div class="panel-head">
+                    <div>
+                      <span class="panel-index">B</span>
+                      <h4 id="verdict-title">Engineering review</h4>
+                    </div>
+                    <span class="quiet-chip">GPT‑5.6 + gates</span>
+                  </div>
+                  <label for="review-question">Review focus</label>
+                  <textarea id="review-question" rows="3">Assess whether the evidence supports the reported result and identify the next verification step.</textarea>
+                  <button id="review-button" class="button primary full" type="button">
+                    Run verified review
+                  </button>
+                  <div id="review-result" class="review-result empty">
+                    <p>Run the review to see deterministic checks, a structured verdict and provenance.</p>
+                  </div>
+                </section>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="architecture" class="architecture shell">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Designed to extend</p>
+            <h2>A small contract, not a new monolith.</h2>
+          </div>
+          <p>Future modules plug into the registry without editing the review core.</p>
+        </div>
+        <div class="architecture-flow" aria-label="Modular architecture diagram">
+          <div class="architecture-card input-card">
+            <span>01</span>
+            <strong>Task intent</strong>
+            <small>question · case · constraints</small>
+          </div>
+          <div class="flow-arrow">→</div>
+          <div class="architecture-card registry-card">
+            <span>02</span>
+            <strong>Module adapter</strong>
+            <small>describe · evidence · validate</small>
+          </div>
+          <div class="flow-arrow">→</div>
+          <div class="architecture-card checks-card">
+            <span>03</span>
+            <strong>Evidence gates</strong>
+            <small>typed · deterministic · fail-closed</small>
+          </div>
+          <div class="flow-arrow">→</div>
+          <div class="architecture-card output-card">
+            <span>04</span>
+            <strong>GPT‑5.6 verdict</strong>
+            <small>findings · caveats · actions</small>
+          </div>
+        </div>
+        <div class="module-contract">
+          <pre><code>class EngineeringModule:
+    describe()        → ModuleDescriptor
+    list_cases()      → list[CaseDescriptor]
+    build_evidence()  → EvidenceBundle
+    validate()        → list[ValidationCheck]</code></pre>
+          <div>
+            <p class="eyebrow">Next modules</p>
+            <h3>FEA, experiments, energy systems, test rigs.</h3>
+            <p>
+              Side-effecting actions are optional and remain approval-gated. The competition build
+              keeps every public adapter read-only.
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="shell footer-inner">
+        <div>
+          <strong>Verified Engineering Studio</strong>
+          <p>Built with Codex and GPT‑5.6 for OpenAI Build Week 2026.</p>
+        </div>
+        <div class="footer-links">
+          <a href="https://github.com/TimSch1912/verified-engineering-studio">Source</a>
+          <a href="/api/docs">API</a>
+          <a href="https://www.hochschule-trier.de/hauptcampus/technik/labor-fuer-digitale-produktentwicklung-und-fertigung-ldpf/projekte/laurons2">Laurons II context</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
+

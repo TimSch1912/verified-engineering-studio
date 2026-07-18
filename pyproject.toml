@@ -1,0 +1,40 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "verified-engineering-studio"
+version = "0.1.0"
+description = "Evidence-first, modular AI reviews for engineering workflows."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [{ name = "Timo Schares" }]
+dependencies = [
+  "fastapi>=0.116",
+  "openai>=1.99",
+  "pydantic>=2.11",
+  "uvicorn[standard]>=0.35",
+]
+
+[project.optional-dependencies]
+test = [
+  "httpx>=0.28",
+  "pytest>=8.4",
+  "ruff>=0.12",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/ves"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP"]
+
