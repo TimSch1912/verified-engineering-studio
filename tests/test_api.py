@@ -16,6 +16,22 @@ def test_health_and_public_index():
     assert health.json()["status"] == "ok"
 
 
+def test_public_frontend_exposes_complete_accessible_review_workspace():
+    index = client.get("/").text
+    javascript = client.get("/assets/app.js").text
+    stylesheet = client.get("/assets/app.css").text
+
+    assert 'class="skip-link"' in index
+    assert 'id="metric-table-body"' in index
+    assert 'id="media-dialog"' in index
+    assert 'id="review-result"' in index and 'aria-live="polite"' in index
+    assert 'el("metric-table-body").innerHTML = evidence.metrics' in javascript
+    assert "openMediaDialog" in javascript
+    assert "controls muted loop playsinline" in javascript
+    assert "artifact-copy" not in javascript
+    assert ".stage-canvas video" in stylesheet
+
+
 def test_review_status_is_cost_safe_and_not_cached(monkeypatch):
     monkeypatch.delenv("OPENAI_API_KEY", raising=False)
     response = client.get("/api/review/status")

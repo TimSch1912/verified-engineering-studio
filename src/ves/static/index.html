@@ -3,220 +3,325 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#071119" />
     <meta
       name="description"
-      content="Verified Engineering Studio turns simulation evidence into traceable engineering reviews."
+      content="Verified Engineering Studio turns simulation evidence into traceable, reproducible engineering reviews."
+    />
+    <meta property="og:title" content="Verified Engineering Studio" />
+    <meta
+      property="og:description"
+      content="Trust the result. Trace the evidence. Review CFD and robotics evidence with deterministic gates and cited AI verdicts."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://verifiedengineeringstudio.schares-timo.de" />
+    <meta
+      property="og:image"
+      content="https://verifiedengineeringstudio.schares-timo.de/assets/cfd/wave-top.png"
     />
     <title>Verified Engineering Studio</title>
-    <link rel="stylesheet" href="/assets/app.css" />
-    <script src="/assets/app.js" defer></script>
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%2358e5d2'/%3E%3Cpath d='M17 17h9l7 27 7-27h8L38 50H27z' fill='%23071119'/%3E%3C/svg%3E"
+    />
+    <link rel="stylesheet" href="/assets/app.css?v=20260718-redesign" />
+    <script src="/assets/app.js?v=20260718-redesign" defer></script>
   </head>
   <body>
-    <div class="noise" aria-hidden="true"></div>
+    <a class="skip-link" href="#studio">Skip to the engineering studio</a>
+    <div class="ambient-grid" aria-hidden="true"></div>
+
     <header class="site-header">
-      <a class="brand" href="#top" aria-label="Verified Engineering Studio home">
-        <span class="brand-mark">V</span>
-        <span>Verified Engineering Studio</span>
-      </a>
-      <nav aria-label="Primary navigation">
-        <a href="#studio">Studio</a>
-        <a href="#architecture">Architecture</a>
-        <a href="https://github.com/TimSch1912/verified-engineering-studio">GitHub</a>
-      </nav>
-      <span class="build-badge">OpenAI Build Week 2026</span>
+      <div class="header-inner shell">
+        <a class="brand" href="#top" aria-label="Verified Engineering Studio home">
+          <span class="brand-mark">V</span>
+          <span class="brand-name">Verified Engineering Studio</span>
+          <span class="brand-short">VES</span>
+        </a>
+        <nav id="primary-navigation" aria-label="Primary navigation">
+          <a href="#studio">Studio</a>
+          <a href="#modules">Modules</a>
+          <a href="#architecture">Architecture</a>
+          <a href="https://github.com/TimSch1912/verified-engineering-studio">GitHub ↗</a>
+        </nav>
+        <div class="header-actions">
+          <span class="build-badge"><i></i> Build Week 2026</span>
+          <button
+            id="menu-button"
+            class="menu-button"
+            type="button"
+            aria-label="Open navigation"
+            aria-controls="primary-navigation"
+            aria-expanded="false"
+          >
+            <span></span><span></span>
+          </button>
+        </div>
+      </div>
     </header>
 
     <main id="top">
-      <section class="hero shell">
+      <section class="hero shell" aria-labelledby="hero-title">
         <div class="hero-copy">
-          <p class="eyebrow">Evidence before confidence</p>
-          <h1>Engineering AI that shows its work.</h1>
+          <p class="eyebrow"><span class="signal-dot"></span> Engineering evidence, live</p>
+          <h1 id="hero-title">Trust the result.<br /><em>Trace the evidence.</em></h1>
           <p class="lede">
-            One review surface for simulation, robotics and the engineering modules that come
-            next. Deterministic checks stay in control; GPT‑5.6 turns verified evidence into a
-            useful, traceable decision brief.
+            A verification workspace for simulation and robotics. Deterministic gates inspect the
+            evidence first; GPT‑5.6 turns only what survives into a concise engineering decision.
           </p>
           <div class="hero-actions">
-            <a class="button primary" href="#studio">Open the studio</a>
-            <a class="button ghost" href="#architecture">See the module contract</a>
+            <a class="button primary" href="#studio">Explore the CFD case <span>↓</span></a>
+            <a class="button secondary" href="#architecture">See how it works</a>
           </div>
-          <ul class="trust-row" aria-label="Product principles">
-            <li><span>01</span> Read-only evidence</li>
-            <li><span>02</span> Deterministic gates</li>
-            <li><span>03</span> Cited AI verdicts</li>
-          </ul>
-        </div>
-        <div class="hero-visual" aria-label="Evidence review pipeline">
-          <div class="orbit orbit-one"></div>
-          <div class="orbit orbit-two"></div>
-          <div class="core-node">
-            <span class="core-kicker">VERDICT</span>
-            <strong>Review</strong>
-            <small>with provenance</small>
+          <div class="hero-proof" aria-label="Current public proof">
+            <div><strong>34</strong><span>automated tests</span></div>
+            <div><strong>SHA‑256</strong><span>evidence integrity</span></div>
+            <div><strong>Read-only</strong><span>public review</span></div>
           </div>
-          <div class="satellite satellite-a"><span>Intent</span></div>
-          <div class="satellite satellite-b"><span>Evidence</span></div>
-          <div class="satellite satellite-c"><span>Checks</span></div>
-          <div class="satellite satellite-d"><span>Limits</span></div>
         </div>
-      </section>
 
-      <section class="module-strip shell" aria-labelledby="modules-title">
-        <div class="section-heading">
-          <div>
-            <p class="eyebrow">Module registry</p>
-            <h2 id="modules-title">Two disciplines. One evidence contract.</h2>
-          </div>
-          <p>Each adapter supplies cases, metrics, artifacts, limits and deterministic checks.</p>
-        </div>
-        <div id="module-cards" class="module-cards" aria-live="polite"></div>
-      </section>
-
-      <section id="studio" class="studio-section">
-        <div class="shell">
-          <div class="section-heading inverse">
-            <div>
-              <p class="eyebrow">Interactive proof</p>
-              <h2>Review an engineering evidence bundle.</h2>
+        <div class="hero-media" aria-label="Laurons II CFD evidence preview">
+          <div class="hero-media-frame">
+            <img
+              src="/assets/cfd/wave-top.png"
+              alt="Free-surface wave pattern around the Laurons II hull"
+            />
+            <div class="hero-media-top">
+              <span>CFD / LAURONS II</span>
+              <span class="live-pill"><i></i> PACKAGE VERIFIED</span>
             </div>
-            <p>The public experience is intentionally read-only and requires no login.</p>
+            <div class="hero-media-bottom">
+              <div>
+                <small>OpenFOAM · RANS–VOF</small>
+                <strong>Resistance evidence review</strong>
+              </div>
+              <span class="media-index">01 / 02</span>
+            </div>
+          </div>
+          <div class="floating-card floating-metric">
+            <span>PERIOD MEAN</span>
+            <strong>49.36 N</strong>
+            <small>15–25.5 s window</small>
+          </div>
+          <div class="floating-card floating-proof">
+            <span class="proof-check">✓</span>
+            <div><strong>Hash-bound</strong><small>3 media artifacts</small></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="proof-strip" aria-label="Review pipeline">
+        <div class="shell proof-strip-inner">
+          <div><span>01</span><strong>Evidence package</strong><small>Typed, hashed, read-only</small></div>
+          <i>→</i>
+          <div><span>02</span><strong>Engineering gates</strong><small>Deterministic, fail-closed</small></div>
+          <i>→</i>
+          <div><span>03</span><strong>Decision brief</strong><small>Cited findings and actions</small></div>
+        </div>
+      </section>
+
+      <section id="studio" class="studio-section" aria-labelledby="studio-title">
+        <div class="shell">
+          <div class="section-heading studio-heading">
+            <div>
+              <p class="eyebrow">Interactive engineering workspace</p>
+              <h2 id="studio-title">Inspect the case, then challenge it.</h2>
+            </div>
+            <p>
+              No login. No hidden solver run. Every public claim remains tied to a visible source,
+              check or limitation.
+            </p>
           </div>
 
-          <div class="studio-frame">
-            <aside class="studio-sidebar">
-              <div class="sidebar-label">DISCIPLINE</div>
-              <div id="module-tabs" class="module-tabs"></div>
-              <div class="sidebar-note">
-                <span class="pulse"></span>
-                <div>
-                  <strong>Fail-closed review</strong>
-                  <p>If evidence is missing, the system says so. It never fills gaps with invented data.</p>
-                </div>
+          <div id="studio-shell" class="studio-shell" aria-busy="true">
+            <div class="studio-toolbar">
+              <div>
+                <span class="toolbar-label">Discipline</span>
+                <div id="module-tabs" class="module-tabs" role="tablist" aria-label="Engineering discipline"></div>
               </div>
-            </aside>
+              <div class="toolbar-status">
+                <span class="read-only-chip">Read-only public case</span>
+                <span id="review-mode-chip" class="ai-chip">Checking reviewer…</span>
+              </div>
+            </div>
 
-            <div class="studio-main">
-              <div class="case-head">
-                <div>
-                  <span id="case-discipline" class="case-discipline">Loading module</span>
-                  <h3 id="case-title">Loading evidence…</h3>
-                  <p id="case-summary"></p>
-                  <code id="case-package-digest" class="case-package-digest"></code>
-                </div>
+            <section class="case-overview" aria-labelledby="case-title">
+              <div>
+                <span id="case-discipline" class="case-discipline">Loading module</span>
+                <h3 id="case-title">Loading evidence…</h3>
+                <p id="case-summary"></p>
+              </div>
+              <div class="case-verification">
                 <span id="case-state" class="status-chip">Loading</span>
+                <div id="package-proof" class="package-proof" hidden>
+                  <span class="proof-check">✓</span>
+                  <div>
+                    <small>PACKAGE INTEGRITY</small>
+                    <code id="case-package-digest"></code>
+                  </div>
+                  <button id="copy-package-digest" type="button" aria-label="Copy package SHA-256">Copy</button>
+                </div>
+              </div>
+            </section>
+
+            <div id="metric-grid" class="metric-grid" aria-live="polite"></div>
+            <details id="metric-ledger" class="metric-ledger">
+              <summary>
+                <span>Complete metric ledger</span>
+                <small id="metric-count"></small>
+              </summary>
+              <div class="table-scroll">
+                <table>
+                  <thead><tr><th>Metric</th><th>Reported value</th><th>Evidence source</th></tr></thead>
+                  <tbody id="metric-table-body"></tbody>
+                </table>
+              </div>
+            </details>
+
+            <div class="evidence-layout">
+              <section class="media-panel" aria-labelledby="evidence-title">
+                <div class="panel-heading">
+                  <div>
+                    <span class="panel-index">A</span>
+                    <div><small>CASE MEDIA</small><h4 id="evidence-title">Evidence viewer</h4></div>
+                  </div>
+                  <span id="artifact-count" class="quiet-chip"></span>
+                </div>
+                <div id="media-stage" class="media-stage"></div>
+                <div id="artifact-thumbnails" class="artifact-thumbnails" aria-label="Evidence media"></div>
+                <div id="evidence-links" class="evidence-links"></div>
+              </section>
+
+              <aside class="evidence-notes" aria-label="Evidence documentation">
+                <details class="evidence-detail" open>
+                  <summary><span>01</span> Source provenance</summary>
+                  <dl id="evidence-provenance"></dl>
+                </details>
+                <details class="evidence-detail method-detail">
+                  <summary><span>02</span> Engineering method basis</summary>
+                  <div id="method-references" class="method-references"></div>
+                </details>
+                <div class="fail-closed-note">
+                  <span class="signal-dot"></span>
+                  <div><strong>Fail-closed by design</strong><p>Missing evidence becomes a visible limitation—never invented data.</p></div>
+                </div>
+              </aside>
+            </div>
+
+            <section class="review-workspace" aria-labelledby="verdict-title">
+              <div class="panel-heading review-panel-heading">
+                <div>
+                  <span class="panel-index">B</span>
+                  <div><small>ENGINEERING REVIEW</small><h4 id="verdict-title">Challenge the evidence</h4></div>
+                </div>
+                <span class="quiet-chip">Deterministic gates first</span>
               </div>
 
-              <div id="metric-grid" class="metric-grid" aria-live="polite"></div>
-
-              <div class="review-grid">
-                <section class="evidence-panel" aria-labelledby="evidence-title">
-                  <div class="panel-head">
-                    <div>
-                      <span class="panel-index">A</span>
-                      <h4 id="evidence-title">Evidence</h4>
-                    </div>
-                    <span id="artifact-count" class="quiet-chip"></span>
-                  </div>
-                  <div id="artifacts" class="artifacts"></div>
-                  <details class="provenance-details">
-                    <summary>Source provenance</summary>
-                    <dl id="evidence-provenance"></dl>
-                  </details>
-                  <details class="provenance-details method-details" open>
-                    <summary>Engineering method basis</summary>
-                    <div id="method-references" class="method-references"></div>
-                  </details>
-                </section>
-
-                <section class="verdict-panel" aria-labelledby="verdict-title">
-                  <div class="panel-head">
-                    <div>
-                      <span class="panel-index">B</span>
-                      <h4 id="verdict-title">Engineering review</h4>
-                    </div>
-                    <span id="review-mode-chip" class="quiet-chip">Checking live review…</span>
-                  </div>
+              <div class="review-launcher">
+                <div class="review-input">
                   <label for="review-question">Review focus</label>
                   <div id="review-prompts" class="review-prompts" aria-label="Guided review questions"></div>
-                  <textarea id="review-question" rows="3">Assess whether the evidence supports the reported result and identify the next verification step.</textarea>
+                  <textarea id="review-question" rows="4">Assess whether the evidence supports the reported result and identify the next verification step.</textarea>
                   <button id="review-button" class="button primary full" type="button">
-                    Run verified review
+                    Run verified review <span>→</span>
                   </button>
                   <p id="review-availability" class="review-availability" aria-live="polite">
                     Checking cost-controlled live review availability…
                   </p>
-                  <div id="review-result" class="review-result empty">
-                    <p>Run the review to see deterministic checks, a structured verdict and provenance.</p>
-                  </div>
-                </section>
+                </div>
+                <div class="review-explainer">
+                  <p class="eyebrow">What the studio does</p>
+                  <ol>
+                    <li><span>1</span><div><strong>Validate</strong><small>Run deterministic module checks.</small></div></li>
+                    <li><span>2</span><div><strong>Constrain</strong><small>Pass only packaged evidence and limits.</small></div></li>
+                    <li><span>3</span><div><strong>Explain</strong><small>Return cited findings and next actions.</small></div></li>
+                  </ol>
+                  <p class="boundary-note">GPT can explain a gate. It cannot overrule one.</p>
+                </div>
               </div>
-            </div>
+
+              <div id="review-result" class="review-result empty" aria-live="polite" tabindex="-1">
+                <div class="empty-result-icon">↗</div>
+                <div><strong>Your decision brief will appear here.</strong><p>Run a guided review to inspect checks, findings, caveats and provenance.</p></div>
+              </div>
+            </section>
           </div>
         </div>
       </section>
 
-      <section id="architecture" class="architecture shell">
+      <section id="modules" class="module-section shell" aria-labelledby="modules-title">
         <div class="section-heading">
           <div>
-            <p class="eyebrow">Designed to extend</p>
-            <h2>A small contract, not a new monolith.</h2>
+            <p class="eyebrow">Modular by construction</p>
+            <h2 id="modules-title">One evidence contract.<br />Every engineering discipline.</h2>
           </div>
-          <p>Future modules plug into the registry without editing the review core.</p>
+          <p>Select a module to open its current public evidence case in the studio.</p>
         </div>
-        <div class="architecture-flow" aria-label="Modular architecture diagram">
-          <div class="architecture-card input-card">
-            <span>01</span>
-            <strong>Task intent</strong>
-            <small>question · case · constraints</small>
+        <div id="module-cards" class="module-cards" aria-live="polite"></div>
+      </section>
+
+      <section id="architecture" class="architecture-section" aria-labelledby="architecture-title">
+        <div class="shell">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Designed to extend</p>
+              <h2 id="architecture-title">A verification layer,<br />not another monolith.</h2>
+            </div>
+            <p>Every adapter supplies the same small set of cases, evidence, checks and review prompts.</p>
           </div>
-          <div class="flow-arrow">→</div>
-          <div class="architecture-card registry-card">
-            <span>02</span>
-            <strong>Module adapter</strong>
-            <small>describe · evidence · validate</small>
+
+          <div class="architecture-flow" aria-label="Verified Engineering Studio architecture">
+            <article><span>01</span><i>INPUT</i><strong>Task intent</strong><small>question · case · constraints</small></article>
+            <b>→</b>
+            <article><span>02</span><i>ADAPTER</i><strong>Module contract</strong><small>describe · evidence · validate</small></article>
+            <b>→</b>
+            <article><span>03</span><i>CONTROL</i><strong>Evidence gates</strong><small>typed · deterministic · fail-closed</small></article>
+            <b>→</b>
+            <article><span>04</span><i>OUTPUT</i><strong>Decision brief</strong><small>findings · caveats · actions</small></article>
           </div>
-          <div class="flow-arrow">→</div>
-          <div class="architecture-card checks-card">
-            <span>03</span>
-            <strong>Evidence gates</strong>
-            <small>typed · deterministic · fail-closed</small>
-          </div>
-          <div class="flow-arrow">→</div>
-          <div class="architecture-card output-card">
-            <span>04</span>
-            <strong>GPT‑5.6 verdict</strong>
-            <small>findings · caveats · actions</small>
-          </div>
-        </div>
-        <div class="module-contract">
-          <pre><code>class EngineeringModule:
+
+          <div class="contract-card">
+            <div>
+              <p class="eyebrow">The module contract</p>
+              <h3>Five methods are enough to add the next discipline.</h3>
+              <p>FEA, experiments, energy systems and test rigs can reuse the review core without changing it.</p>
+            </div>
+            <pre><code>class EngineeringModule:
     describe()        → ModuleDescriptor
     list_cases()      → list[CaseDescriptor]
     review_prompts()  → list[ReviewPrompt]
     build_evidence()  → EvidenceBundle
     validate()        → list[ValidationCheck]</code></pre>
-          <div>
-            <p class="eyebrow">Next modules</p>
-            <h3>FEA, experiments, energy systems, test rigs.</h3>
-            <p>
-              Side-effecting actions are optional and remain approval-gated. The competition build
-              keeps every public adapter read-only.
-            </p>
           </div>
         </div>
       </section>
     </main>
 
+    <dialog id="media-dialog" class="media-dialog" aria-labelledby="media-dialog-title">
+      <div class="dialog-bar">
+        <div><small>EVIDENCE MEDIA</small><strong id="media-dialog-title"></strong></div>
+        <button id="media-dialog-close" type="button" aria-label="Close media viewer">×</button>
+      </div>
+      <div id="media-dialog-content" class="media-dialog-content"></div>
+      <div class="dialog-footer">
+        <p id="media-dialog-caption"></p>
+        <button id="media-browser-fullscreen" class="button secondary" type="button">Browser fullscreen</button>
+      </div>
+    </dialog>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
     <footer>
       <div class="shell footer-inner">
-        <div>
-          <strong>Verified Engineering Studio</strong>
-          <p>Built with Codex and GPT‑5.6 for OpenAI Build Week 2026.</p>
+        <div class="footer-brand">
+          <span class="brand-mark">V</span>
+          <div><strong>Verified Engineering Studio</strong><p>Evidence before confidence.</p></div>
         </div>
         <div class="footer-links">
-          <a href="https://github.com/TimSch1912/verified-engineering-studio">Source</a>
+          <a href="#studio">Studio</a>
+          <a href="https://github.com/TimSch1912/verified-engineering-studio">Source ↗</a>
           <a href="/api/docs">API</a>
-          <a href="https://www.hochschule-trier.de/hauptcampus/technik/labor-fuer-digitale-produktentwicklung-und-fertigung-ldpf/projekte/laurons2">Laurons II context</a>
+          <a href="https://www.hochschule-trier.de/hauptcampus/technik/labor-fuer-digitale-produktentwicklung-und-fertigung-ldpf/projekte/laurons2">Laurons II ↗</a>
         </div>
       </div>
     </footer>
