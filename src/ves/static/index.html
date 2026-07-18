@@ -129,13 +129,16 @@
                       <span class="panel-index">B</span>
                       <h4 id="verdict-title">Engineering review</h4>
                     </div>
-                    <span class="quiet-chip">GPT‑5.6 + gates</span>
+                    <span id="review-mode-chip" class="quiet-chip">Checking live review…</span>
                   </div>
                   <label for="review-question">Review focus</label>
                   <textarea id="review-question" rows="3">Assess whether the evidence supports the reported result and identify the next verification step.</textarea>
                   <button id="review-button" class="button primary full" type="button">
                     Run verified review
                   </button>
+                  <p id="review-availability" class="review-availability" aria-live="polite">
+                    Checking cost-controlled live review availability…
+                  </p>
                   <div id="review-result" class="review-result empty">
                     <p>Run the review to see deterministic checks, a structured verdict and provenance.</p>
                   </div>
@@ -212,4 +215,3 @@
     </footer>
   </body>
 </html>
-

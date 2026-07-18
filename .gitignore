@@ -3,6 +3,7 @@ __pycache__/
 *.py[cod]
 .pytest_cache/
 .ruff_cache/
+.state/
 .env
 deploy/cloudflared.yml
 deploy/cloudflared-credentials.json

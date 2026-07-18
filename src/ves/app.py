@@ -1,13 +1,14 @@
 from __future__ import annotations
 
 import os
+from ipaddress import IPv6Address, ip_address, ip_network
 from pathlib import Path
 
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Request, Response
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 
-from ves.core.models import ReviewEnvelope, ReviewRequest
+from ves.core.models import ReviewAvailability, ReviewEnvelope, ReviewRequest
 from ves.core.registry import ModuleRegistry, UnknownModuleError
 from ves.core.review import ReviewService
 from ves.modules.cfd import CFDModule
@@ -23,7 +24,7 @@ review_service = ReviewService()
 
 app = FastAPI(
     title="Verified Engineering Studio",
-    version="0.1.0",
+    version="0.2.0",
     description="Evidence-first AI reviews for modular engineering workflows.",
     docs_url="/api/docs",
     redoc_url=None,
@@ -51,12 +52,14 @@ async def index() -> FileResponse:
 
 
 @app.get("/healthz")
-async def healthz() -> dict[str, str | bool]:
+async def healthz() -> dict[str, str | bool | int]:
     return {
         "status": "ok",
         "service": "verified-engineering-studio",
         "openai_configured": review_service.configured,
         "model": review_service.model,
+        "cost_guard": True,
+        "max_output_tokens": review_service.max_output_tokens,
     }
 
 
@@ -83,17 +86,53 @@ async def get_evidence(module_id: str, case_id: str):
         raise HTTPException(status_code=404, detail="Unknown evidence case") from exc
 
 
+@app.get("/api/review/status", response_model=ReviewAvailability)
+async def review_status(request: Request, response: Response) -> ReviewAvailability:
+    response.headers["Cache-Control"] = "no-store"
+    return review_service.availability(_client_identity(request))
+
+
 @app.post("/api/review", response_model=ReviewEnvelope)
-async def create_review(request: ReviewRequest) -> ReviewEnvelope:
+async def create_review(review_request: ReviewRequest, request: Request) -> ReviewEnvelope:
     try:
-        module = registry.get(request.module_id)
-        evidence = module.build_evidence(request.case_id)
+        module = registry.get(review_request.module_id)
+        evidence = module.build_evidence(review_request.case_id)
     except UnknownModuleError as exc:
         raise HTTPException(status_code=404, detail="Unknown engineering module") from exc
     except KeyError as exc:
         raise HTTPException(status_code=404, detail="Unknown evidence case") from exc
     checks = module.validate(evidence)
-    return await review_service.review(evidence, checks, request.question)
+    return await review_service.review(
+        evidence,
+        checks,
+        review_request.question,
+        client_id=_client_identity(request),
+    )
+
+
+def _client_identity(request: Request) -> str:
+    peer = request.client.host if request.client else "unknown"
+    try:
+        address = ip_address(peer)
+    except ValueError:
+        return review_service.client_identity("unknown")
+
+    # cloudflared is the only public path and connects over loopback. Never trust a forwarded
+    # client header from a non-loopback peer.
+    if address.is_loopback:
+        forwarded = request.headers.get("cf-connecting-ip", "")
+        if forwarded and "," not in forwarded:
+            try:
+                address = ip_address(forwarded.strip())
+            except ValueError:
+                pass
+
+    if isinstance(address, IPv6Address) and not address.is_loopback:
+        grouped = ip_network(f"{address}/64", strict=False)
+        identity_source = f"{grouped.network_address}/64"
+    else:
+        identity_source = str(address)
+    return review_service.client_identity(identity_source)
 
 
 def run() -> None:

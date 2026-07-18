@@ -32,3 +32,9 @@ def test_unknown_cfd_case_fails_closed():
     else:
         raise AssertionError("Unknown cases must not fall back to a different evidence bundle")
 
+
+def test_isaac_preview_is_a_stable_snapshot():
+    module = IsaacModule()
+    first = module.build_evidence("skill-plan-proof")
+    second = module.build_evidence("skill-plan-proof")
+    assert first.model_dump_json() == second.model_dump_json()

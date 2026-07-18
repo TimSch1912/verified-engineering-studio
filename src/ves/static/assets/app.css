@@ -765,6 +765,28 @@ textarea:focus {
   border-color: rgba(53, 209, 189, 0.6);
 }
 
+.review-availability {
+  min-height: 28px;
+  margin: 8px 0 0;
+  padding: 8px 10px;
+  color: #8fa4a9;
+  background: rgba(255, 255, 255, 0.035);
+  border-left: 2px solid #657b82;
+  border-radius: 5px;
+  font-size: 9px;
+  line-height: 1.45;
+}
+
+.review-availability.live {
+  color: #a9dcd4;
+  border-left-color: var(--teal);
+}
+
+.review-availability.fallback {
+  color: #d6bd91;
+  border-left-color: var(--amber);
+}
+
 .review-result {
   margin-top: 14px;
 }
@@ -998,4 +1020,3 @@ footer {
   html { scroll-behavior: auto; }
   *, *::before, *::after { transition-duration: 0.01ms !important; }
 }
-

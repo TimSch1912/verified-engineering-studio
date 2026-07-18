@@ -16,6 +16,8 @@ from ves.modules.base import EngineeringModule
 class IsaacModule(EngineeringModule):
     """Read-only placeholder until the separate Isaac session hands over a stable snapshot."""
 
+    _preview_generated_at = datetime(2026, 7, 17, 13, 0, tzinfo=UTC)
+
     def describe(self) -> ModuleDescriptor:
         return ModuleDescriptor(
             id="isaac",
@@ -47,7 +49,7 @@ class IsaacModule(EngineeringModule):
             module_id="isaac",
             case_id=case_id,
             case_title="Isaac Skill Studio · handoff preview",
-            generated_at=datetime.now(UTC),
+            generated_at=self._preview_generated_at,
             metrics=[
                 Metric(
                     id="metric.pipeline_stages",

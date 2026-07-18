@@ -54,14 +54,35 @@ place the real value in browser code, `.env.example`, a commit, an issue, or a s
 ```bash
 cp .env.example .env
 chmod 600 .env
-# Edit .env locally and set OPENAI_API_KEY. The .env file is ignored by Git.
+./scripts/configure-openai-key.sh
 ```
+
+The helper reads the key without terminal echo or shell-history exposure and updates only the
+ignored `.env` file. It never prints the secret.
+
+## Public API cost guard
+
+The unauthenticated competition demo fails closed before making a live model request. Defaults are:
+
+- three uncached live reviews per visitor in a rolling hour;
+- twenty outbound OpenAI attempts per UTC day;
+- one live request at a time, a 45-second timeout and no automatic SDK retries;
+- a 1,800-token output ceiling;
+- a seven-day cache for successful, identical structured verdicts.
+
+Cache hits and deterministic fallbacks do not consume live-call quota. API failures do consume a
+reservation because an upstream attempt may already have incurred usage. The daily limit can be set
+to `0` as an emergency kill switch. Quotas and cached verdicts persist in SQLite; visitor addresses
+are HMAC pseudonymized before storage. Questions are represented only by a one-way cache key, while
+the structured model verdict is cached. OpenAI project spend alerts remain a separate
+defense-in-depth control.
 
 ## Tests
 
 ```bash
 uv run pytest
 uv run ruff check .
+node --check src/ves/static/assets/app.js
 ```
 
 ## Architecture
@@ -104,4 +125,3 @@ reports, source images and protected CAD are excluded.
 
 Code is available under the MIT License. Bundled media remains copyright Timo Schares / project
 contributors and is included for judging and demonstration; see [the asset register](docs/ASSET_REGISTER.md).
-

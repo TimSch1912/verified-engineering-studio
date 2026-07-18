@@ -10,14 +10,17 @@ Group=pi
 WorkingDirectory=/home/pi/verified-engineering-studio
 EnvironmentFile=-/home/pi/verified-engineering-studio/.env
 Environment=PYTHONUNBUFFERED=1
-ExecStart=/home/pi/verified-engineering-studio/.venv/bin/uvicorn ves.app:app --app-dir src --host 127.0.0.1 --port 8110
+Environment=VES_STATE_DB=/var/lib/verified-engineering-studio/review-guard.sqlite3
+ExecStart=/home/pi/verified-engineering-studio/.venv/bin/uvicorn ves.app:app --app-dir src --host 127.0.0.1 --port 8110 --no-proxy-headers
 Restart=on-failure
 RestartSec=3
 NoNewPrivileges=true
 PrivateTmp=true
 ProtectSystem=strict
-ReadWritePaths=/home/pi/verified-engineering-studio
+ProtectHome=read-only
+StateDirectory=verified-engineering-studio
+StateDirectoryMode=0700
+UMask=0077
 
 [Install]
 WantedBy=multi-user.target
-

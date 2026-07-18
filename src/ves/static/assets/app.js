@@ -3,6 +3,7 @@ const state = {
   activeModule: null,
   activeCase: null,
   evidence: null,
+  reviewStatus: null,
 };
 
 const el = (id) => document.getElementById(id);
@@ -18,6 +19,18 @@ function escapeHtml(value) {
 
 function stateLabel(value) {
   return value === "ready" ? "Ready" : value === "preview" ? "Preview" : "Handoff pending";
+}
+
+function fallbackReasonLabel(value) {
+  const labels = {
+    not_configured: "API credential pending",
+    client_limit: "visitor live limit reached",
+    daily_limit: "daily live budget reached",
+    busy: "live reviewer busy",
+    guard_error: "cost guard unavailable",
+    api_error: "live API error",
+  };
+  return labels[value] || "deterministic fallback";
 }
 
 async function fetchJson(url, options) {
@@ -139,11 +152,16 @@ function renderArtifact(artifact) {
 function renderReview(payload) {
   const verdict = payload.verdict;
   const provenance = payload.provenance;
+  const modeParts = [provenance.mode, provenance.model];
+  if (provenance.cache_hit) modeParts.push("cache hit");
+  if (provenance.fallback_reason) {
+    modeParts.push(fallbackReasonLabel(provenance.fallback_reason));
+  }
   el("review-result").className = "review-result";
   el("review-result").innerHTML = `
     <div class="verdict-head">
       <span class="verdict-status ${escapeHtml(verdict.status)}">${escapeHtml(verdict.status)}</span>
-      <span class="verdict-mode">${escapeHtml(provenance.mode)} · ${escapeHtml(provenance.model)}</span>
+      <span class="verdict-mode">${escapeHtml(modeParts.join(" · "))}</span>
     </div>
     <p class="review-summary">${escapeHtml(verdict.summary)}</p>
     <div class="finding-list">
@@ -162,6 +180,29 @@ function renderReview(payload) {
       ${verdict.next_actions.map((action) => `<li>${escapeHtml(action)}</li>`).join("")}
     </ol>
     <div class="review-provenance">evidence sha256 · ${escapeHtml(provenance.evidence_sha256)}</div>`;
+}
+
+async function refreshReviewStatus() {
+  try {
+    const status = await fetchJson("/api/review/status");
+    state.reviewStatus = status;
+    if (status.live_ai_available) {
+      el("review-mode-chip").textContent = `${status.model} live + gates`;
+      el("review-availability").textContent =
+        "Live AI is available. Successful identical reviews are cached to avoid duplicate cost.";
+      el("review-availability").className = "review-availability live";
+    } else {
+      el("review-mode-chip").textContent = "Deterministic gates available";
+      el("review-availability").textContent =
+        `Live AI: ${fallbackReasonLabel(status.reason)}. The cost-safe deterministic review remains available.`;
+      el("review-availability").className = "review-availability fallback";
+    }
+  } catch (_error) {
+    el("review-mode-chip").textContent = "Fail-closed review";
+    el("review-availability").textContent =
+      "Live availability could not be confirmed. Deterministic gates remain available.";
+    el("review-availability").className = "review-availability fallback";
+  }
 }
 
 async function runReview() {
@@ -187,11 +228,13 @@ async function runReview() {
   } finally {
     button.disabled = false;
     button.textContent = "Run verified review";
+    refreshReviewStatus();
   }
 }
 
 async function init() {
   el("review-button").addEventListener("click", runReview);
+  refreshReviewStatus();
   try {
     state.modules = await fetchJson("/api/modules");
     renderModuleCards();
@@ -203,4 +246,3 @@ async function init() {
 }
 
 init();
-

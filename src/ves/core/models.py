@@ -2,12 +2,21 @@ from __future__ import annotations
 
 from datetime import datetime
 from typing import Literal
+from unicodedata import normalize
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, field_validator
 
 ModuleState = Literal["ready", "preview", "handoff_pending"]
 CheckStatus = Literal["pass", "warn", "fail", "info"]
 VerdictStatus = Literal["verified", "review", "blocked"]
+FallbackReason = Literal[
+    "not_configured",
+    "client_limit",
+    "daily_limit",
+    "busy",
+    "guard_error",
+    "api_error",
+]
 
 
 class ModuleDescriptor(BaseModel):
@@ -90,6 +99,13 @@ class ReviewRequest(BaseModel):
     case_id: str
     question: str = Field(min_length=3, max_length=800)
 
+    @field_validator("question", mode="before")
+    @classmethod
+    def normalize_question(cls, value: object) -> object:
+        if not isinstance(value, str):
+            return value
+        return " ".join(normalize("NFC", value).split())
+
 
 class ReviewProvenance(BaseModel):
     generated_at: datetime
@@ -98,6 +114,9 @@ class ReviewProvenance(BaseModel):
     evidence_sha256: str
     schema_version: Literal["ves.review.v1"] = "ves.review.v1"
     api_error: bool = False
+    cache_hit: bool = False
+    live_api_call: bool = False
+    fallback_reason: FallbackReason | None = None
 
 
 class ReviewEnvelope(BaseModel):
@@ -106,3 +125,12 @@ class ReviewEnvelope(BaseModel):
     evidence: EvidenceBundle
     provenance: ReviewProvenance
 
+
+class ReviewAvailability(BaseModel):
+    api_configured: bool
+    live_ai_available: bool
+    deterministic_fallback_available: Literal[True] = True
+    reason: FallbackReason | None = None
+    model: str
+    max_output_tokens: int
+    cache_enabled: Literal[True] = True

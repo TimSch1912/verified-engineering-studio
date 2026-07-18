@@ -1,7 +1,7 @@
 [Unit]
 Description=Cloudflare Tunnel for Verified Engineering Studio
-After=network-online.target ves.service
-Wants=network-online.target ves.service
+After=network-online.target verified-engineering-studio.service
+Wants=network-online.target verified-engineering-studio.service
 
 [Service]
 Type=simple
@@ -17,4 +17,3 @@ ReadOnlyPaths=/home/pi/verified-engineering-studio
 
 [Install]
 WantedBy=multi-user.target
-
