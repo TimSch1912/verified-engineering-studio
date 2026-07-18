@@ -5,8 +5,9 @@ No account is required. The public product is intentionally read-only.
 ## Fast path (about 90 seconds)
 
 1. Open <https://verifiedengineeringstudio.schares-timo.de>.
-2. In **CFD**, inspect the `evidence_package` provenance row and the open **Engineering method
-   basis** section. The textbook supports the rules; the metric cards remain the run evidence.
+2. In **CFD**, inspect the package-integrity badge and complete metric ledger. Enlarge an image or
+   play the mesh video, then open **Source provenance** and **Engineering method basis**. The
+   textbook supports the rules; the reported metrics remain the run evidence.
 3. Select **Result support** and run the review. The deterministic gates are rendered before the
    structured findings. Force closure passes, while grid convergence and reproduction
    documentation remain warnings; GPT cannot upgrade the result past `review`.

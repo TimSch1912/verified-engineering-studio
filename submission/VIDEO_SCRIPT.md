@@ -5,7 +5,8 @@ site, not a local development build. Keep the cursor deliberate and avoid dead t
 
 ## 0:00–0:15 — Problem and hook
 
-**Picture:** Product hero, slow scroll toward “Evidence before confidence”.
+**Picture:** New product hero with the real Laurons wave field, package-verification badge and
+period-mean card. Move directly into the studio with **Explore the CFD case**.
 
 **Narration:**
 
@@ -25,7 +26,8 @@ site, not a local development build. Keep the cursor deliberate and avoid dead t
 
 ## 0:35–1:02 — Immutable CFD evidence
 
-**Picture:** CFD case header, package SHA, metric cards, wave image, decomposition and mesh video.
+**Picture:** CFD case header, package SHA and four key metrics. Open the complete metric ledger,
+then use the evidence viewer to enlarge the wave image and play the mesh video in fullscreen.
 
 **Narration:**
 
@@ -36,8 +38,8 @@ site, not a local development build. Keep the cursor deliberate and avoid dead t
 
 ## 1:02–1:25 — Facts versus methods
 
-**Picture:** Open “Source provenance”, then show “Engineering method basis”. Keep the Versteeg and
-ITTC cards readable.
+**Picture:** Open “Source provenance”, then open “Engineering method basis”. Keep the Versteeg and
+ITTC cards readable beside the large media viewer.
 
 **Narration:**
 
@@ -78,7 +80,7 @@ ITTC cards readable.
 
 ## 2:33–2:48 — Codex, architecture and close
 
-**Picture:** Architecture section, then a quick terminal/GitHub cut showing `34 passed`, package
+**Picture:** Architecture section, then a quick terminal/GitHub cut showing `35 passed`, package
 validation and green CI. Include a brief Codex session/repository-history shot.
 
 **Narration:**
