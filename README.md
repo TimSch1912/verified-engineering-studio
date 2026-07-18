@@ -112,7 +112,9 @@ class EngineeringModule:
 ```
 
 See [Adding a module](docs/ADDING_A_MODULE.md) for the extension path and
-[CFD grid convergence plan](docs/GRID_CONVERGENCE_PLAN.md) for the next verification step.
+[CFD grid convergence plan](docs/GRID_CONVERGENCE_PLAN.md) for the next verification step. The
+[product roadmap](docs/PRODUCT_ROADMAP.md) describes the durable dual-domain studio, portable
+evidence packages and the implementation sequence beyond the competition.
 
 ## Data and media policy
 
