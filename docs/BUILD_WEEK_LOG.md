@@ -13,7 +13,7 @@ Week; this log covers the new Verified Engineering Studio product.
   public domains.
 - Added persistent cost controls: visitor/hour and UTC/day limits, single-call concurrency,
   bounded output, timeout, disabled SDK retries and a seven-day result cache.
-- Performed one controlled live GPT-5.6 review and verified deterministic fallback behavior.
+- Performed controlled live GPT-5.6 reviews and verified deterministic fallback behavior.
 - Designed the long-term dual-domain product roadmap and kept the Isaac adapter in honest
   `handoff pending` state while its separate stabilization session continues.
 - Implemented `.vespack` v1 with typed manifest/provenance, exact sizes, SHA-256 index, canonical
@@ -25,10 +25,12 @@ Week; this log covers the new Verified Engineering Studio product.
   for an admissible monotonic, approximately constant-ratio sequence.
 - Added guided review questions, visible deterministic gates/method citations, CI and security/
   numerical regression tests.
+- Pre-generated and cached all three guided CFD reviews, verified the public cache path and
+  regenerated the 3:2 Devpost review screenshot from the deployed release.
 
 ## Explicitly pending
 
 - stable Isaac handoff export from the independent bug-fix session;
 - actual medium/coarse OpenFOAM results for the Laurons convergence study;
-- refreshed screenshots and final narrated video after the current release is deployed;
+- final narrated video from the deployed release;
 - user-owned YouTube upload, Devpost final fields, feedback session ID and submission action.

@@ -120,8 +120,8 @@ Python, FastAPI, Pydantic, OpenAI API, GPT-5.6, OpenAI Responses API, Structured
 ## Project media
 
 - `submission/media/01-product-hero.png`
+- `submission/media/02-cfd-review.png`
 - `submission/media/03-module-architecture.png`
-- Regenerate `02-cfd-review.png` after the new evidence-gate interface is deployed.
 
 ## Video demo link
 
