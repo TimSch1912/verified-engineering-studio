@@ -10,6 +10,7 @@ client = TestClient(app)
 
 def test_health_and_public_index():
     assert client.get("/").status_code == 200
+    assert client.head("/").status_code == 200
     health = client.get("/healthz")
     assert health.status_code == 200
     assert health.json()["status"] == "ok"
